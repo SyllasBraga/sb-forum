@@ -3,6 +3,8 @@ package com.sb.forum.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Entity
 @Data
 public class Topico {
@@ -15,4 +17,7 @@ public class Topico {
 
     @OneToOne
     private Usuario usuario;
+
+    @OneToMany
+    private List<MensagensTopico> mensagens;
 }
