@@ -16,6 +16,7 @@ public class Topico {
     private String conteudo;
 
     @OneToOne
+    @PrimaryKeyJoinColumn(name = "id_autor")
     private Usuario usuario;
 
     @OneToMany
