@@ -4,7 +4,6 @@ import com.sb.forum.entities.Usuario;
 import com.sb.forum.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,7 +21,6 @@ public class UsuarioService {
 
         return listaUsuarios;
     }
-
 
     public Usuario getById(Long id){
 
