@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UsuarioService {
@@ -19,7 +18,7 @@ public class UsuarioService {
 
     public List<Usuario> getAll(){
 
-        List<Usuario> listaUsuarios = new ArrayList<>();
+        List<Usuario> listaUsuarios = usuarioRepository.findAll();
 
         return listaUsuarios;
     }
@@ -36,7 +35,7 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
-    public Usuario update(Long id, Usuario usuario) throws Exception {
+    public Usuario update(Long id, Usuario usuario) {
 
         return usuarioRepository.findById(id).map(Record ->{
             Record.setNome(usuario.getNome());
@@ -45,7 +44,7 @@ public class UsuarioService {
             usuarioRepository.save(Record);
 
             return Record;
-        }).orElseThrow(() -> new Exception("Usuário não encontrado!"));
+        }).orElse(null);
     }
 
     public String delete(Long id){
