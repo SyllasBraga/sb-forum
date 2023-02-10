@@ -13,12 +13,14 @@ create table topico(
 id int primary key not null auto_increment,
 titulo varchar(255) not null,
 conteudo varchar(255) not null,
+data_publicacao date not null,
 id_autor int not null
 );
 
 create table mensagens_topico(
 id int primary key not null auto_increment,
 mensagem_conteudo varchar(255) not null,
+data_publicacao date not null,
 id_topico int not null,
 id_usuario int not null
 );
@@ -26,6 +28,7 @@ id_usuario int not null
 create table respostas_mensagens_topico(
 id int primary key not null auto_increment,
 resposta_conteudo varchar(255) not null,
+data_publicacao date not null,
 id_mensagem int not null,
 id_usuario int not null
 );
@@ -47,9 +50,9 @@ add foreign key fk_id_usuario_respt(id_usuario) references usuario(id);
 
 insert into usuario(nome, login, senha) values ("João", "joão", "123"), ("Maria", "maria", "123");
 
-insert into topico values (default, "Programadores", "Os devs são f0d@s", 1);
+insert into topico values (default, "Programadores", "Os devs são f0d@s", "2023-02-10 17:05:39", 1);
 
-insert into mensagens_topico values(default, "Com toda certeza!", 1, 2);
+insert into mensagens_topico values(default, "Com toda certeza!","2023-02-10 17:10:55", 1, 2);
 
-insert into respostas_mensagens_topico values (default, "Obrigado pela mensagem!", 1, 1);
-insert into respostas_mensagens_topico values (default, "O prazer é meu", 1, 2);
+insert into respostas_mensagens_topico values (default, "Obrigado pela mensagem!","2023-02-10 17:11:21", 1, 1);
+insert into respostas_mensagens_topico values (default, "O prazer é meu","2023-02-10 17:12:34", 1, 2);

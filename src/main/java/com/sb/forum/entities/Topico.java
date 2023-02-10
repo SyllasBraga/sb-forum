@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -15,6 +16,7 @@ public class Topico {
     private Long id;
     private String titulo;
     private String conteudo;
+    private Date dataPublicacao;
 
     @OneToOne
     @JoinColumn(name = "id")
