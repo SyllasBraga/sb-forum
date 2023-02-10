@@ -22,7 +22,7 @@ public class RespostasMensagensTopico {
     private MensagensTopico idMensagem;
 
     @OneToOne
-    @PrimaryKeyJoinColumn(name = "id_usuario")
+    @JoinColumn(name = "id_usuario")
     private Usuario idUsuario;
 
 }

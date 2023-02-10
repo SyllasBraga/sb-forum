@@ -1,7 +1,6 @@
 package com.sb.forum.services;
 
 import com.sb.forum.entities.Topico;
-import com.sb.forum.entities.Usuario;
 import com.sb.forum.repository.TopicoRepository;
 import org.springframework.stereotype.Service;
 

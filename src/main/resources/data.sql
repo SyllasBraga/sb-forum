@@ -56,3 +56,10 @@ insert into mensagens_topico values(default, "Com toda certeza!","2023-02-10 17:
 
 insert into respostas_mensagens_topico values (default, "Obrigado pela mensagem!","2023-02-10 17:11:21", 1, 1);
 insert into respostas_mensagens_topico values (default, "O prazer é meu","2023-02-10 17:12:34", 1, 2);
+
+insert into topico values (default, "S.O.L.I.D.", "Design de programação muito popular", "2023-02-10 17:05:39", 1);
+
+insert into mensagens_topico values(default, "Devs que conhecem são mais disputados","2023-02-10 17:10:55", 1, 2);
+
+insert into respostas_mensagens_topico values (default, "Sim, por isso a remuneração é maior","2023-02-10 17:11:21", 1, 1);
+insert into respostas_mensagens_topico values (default, "Na maioria das vezes","2023-02-10 17:12:34", 1, 2);

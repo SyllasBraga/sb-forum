@@ -27,7 +27,7 @@ public class MensagensTopico {
     @PrimaryKeyJoinColumn(name = "id_usuario")
     private Usuario idUsuario;
 
-    @OneToMany(mappedBy = "idMensagem")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMensagem", fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<RespostasMensagensTopico> listaRespostas;
 }
