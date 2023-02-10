@@ -15,8 +15,8 @@ public class TopicoService {
     public TopicoService(TopicoRepository topicoRepository) {
         this.topicoRepository = topicoRepository;
     }
-    public List<Topico> getAll(){
 
+    public List<Topico> getAll(){
         List<Topico> listaTopicos = topicoRepository.findAll();
 
         return listaTopicos;
@@ -37,7 +37,7 @@ public class TopicoService {
 
         return topicoRepository.findById(id).map(Record ->{
             Record.setConteudo(topico.getConteudo());
-            Record.setMensagens(topico.getMensagens());
+            Record.setListMensagens(topico.getListMensagens());
             Record.setTitulo(topico.getTitulo());
 
             topicoRepository.save(Record);

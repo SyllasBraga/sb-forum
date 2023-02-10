@@ -1,5 +1,8 @@
 package com.sb.forum.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -14,12 +17,16 @@ public class MensagensTopico {
     private Long id;
     private String mensagemConteudo;
 
-    @OneToOne
-    private Topico topico;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    @JoinColumn(name = "id_topico")
+    private Topico idTopico;
 
     @OneToOne
-    private Usuario usuario;
+    @PrimaryKeyJoinColumn(name = "id_usuario")
+    private Usuario idUsuario;
 
-    @OneToMany
-    private List<RespostasMensagensTopico> respostasMensagem;
+    @OneToMany(mappedBy = "idMensagem")
+    @JsonManagedReference
+    private List<RespostasMensagensTopico> listaRespostas;
 }

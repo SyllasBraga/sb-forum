@@ -1,3 +1,4 @@
+drop database if exists sb_forum; 
 create database sb_forum;
 use sb_forum;
 
@@ -15,31 +16,45 @@ conteudo varchar(255) not null,
 id_autor int not null
 );
 
+create table mensagens_topico_ass(
+id_topico int not null,
+id_mensagem int not null
+);
+
 create table mensagens_topico(
 id int primary key not null auto_increment,
 mensagem_conteudo varchar(255) not null,
-id_topico int not null,
 id_usuario int not null
+);
+
+create table respostas_mensagens(
+id_mensagem int not null,
+id_resposta int not null
 );
 
 create table respostas_mensagens_topico(
 id int primary key not null auto_increment,
 resposta_conteudo varchar(255) not null,
-id_mensagem int not null,
 id_usuario int not null
 );
 
 alter table topico
 add foreign key fk_id_autor(id_autor) references usuario(id);
 
-alter table mensagens_topico
-add foreign key fk_id_topico_msg(id_topico) references topico(id);
+alter table  mensagens_topico_ass
+add foreign key fk_id_topico(id_topico) references topico(id);
+
+alter table mensagens_topico_ass
+add foreign key fk_id_msg(id_mensagem) references mensagens_topico(id);
 
 alter table mensagens_topico
 add foreign key fk_id_usuario_msg(id_usuario) references usuario(id);
 
-alter table respostas_mensagens_topico
-add foreign key fk_id_topico_respt(id_mensagem) references respostas_mensagens_topico(id);
+alter table respostas_mensagens
+add foreign key fk_id_topico_msg(id_mensagem) references mensagens_topico(id);
+
+alter table respostas_mensagens
+add foreign key fk_id_topico(id_resposta) references respostas_mensagens_topico(id);
 
 alter table respostas_mensagens_topico
 add foreign key fk_id_usuario_respt(id_usuario) references usuario(id);
@@ -48,6 +63,10 @@ insert into usuario(nome, login, senha) values ("João", "joão", "123"), ("Mari
 
 insert into topico values (default, "Programadores", "Os devs são f0d@s", 1);
 
-insert into mensagens_topico values(default, "Com toda certeza!", 1, 2);
+insert into mensagens_topico values(default, "Com toda certeza!", 2);
 
-insert into respostas_mensagens_topico values (default, "Obrigado pela mensage!", 1, 1);
+insert into mensagens_topico_ass values (1,1);
+
+insert into respostas_mensagens_topico values (default, "Obrigado pela mensagem!", 1);
+
+insert into respostas_mensagens values (1,1);

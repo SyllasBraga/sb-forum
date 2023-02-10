@@ -1,5 +1,8 @@
 package com.sb.forum.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,9 +19,10 @@ public class Topico {
     private String conteudo;
 
     @OneToOne
-    @PrimaryKeyJoinColumn(name = "id_autor")
-    private Usuario usuario;
+    @JoinColumn(name = "id")
+    private Usuario idAutor;
 
-    @OneToMany
-    private List<MensagensTopico> mensagens;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTopico", fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<MensagensTopico> listMensagens;
 }

@@ -1,9 +1,8 @@
 package com.sb.forum.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
-
-import java.util.List;
 
 @Entity
 @Data
@@ -12,12 +11,15 @@ public class RespostasMensagensTopico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String respostaMensagem;
+    private String respostaConteudo;
+
+    @ManyToOne
+    @JoinColumn(name = "id_mensagem")
+    @JsonBackReference
+    private MensagensTopico idMensagem;
 
     @OneToOne
-    private MensagensTopico mensagensTopico;
-
-    @OneToOne
-    private Usuario usuario;
+    @PrimaryKeyJoinColumn(name = "id_usuario")
+    private Usuario idUsuario;
 
 }
