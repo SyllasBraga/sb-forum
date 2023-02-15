@@ -1,5 +1,6 @@
 package com.sb.forum.controller;
 
+import com.sb.forum.dtos.UsuarioDto;
 import com.sb.forum.entities.Topico;
 import com.sb.forum.entities.Usuario;
 import com.sb.forum.services.UsuarioService;
@@ -19,22 +20,22 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Usuario>> getAll() {
+    public ResponseEntity<List<UsuarioDto>> getAll() {
         return ResponseEntity.ok(usuarioService.getAll());
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<Usuario> getById(@PathVariable Long id) {
+    public ResponseEntity<UsuarioDto> getById(@PathVariable Long id) {
         return ResponseEntity.ok(usuarioService.getById(id));
     }
 
     @PostMapping
-    public ResponseEntity<Usuario> create(@RequestBody Usuario usuario) {
+    public ResponseEntity<UsuarioDto> create(@RequestBody UsuarioDto usuario) {
         return ResponseEntity.ok(usuarioService.create(usuario));
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<Usuario> update(@PathVariable Long id, @RequestBody Usuario usuario) {
+    public ResponseEntity<UsuarioDto> update(@PathVariable Long id, @RequestBody UsuarioDto usuario) {
         return ResponseEntity.ok(usuarioService.update(id, usuario));
     }
 

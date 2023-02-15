@@ -17,4 +17,9 @@ public class UsuarioDto {
     @NotNull
     @Email
     private String login;
+
+    @NotNull
+    @Size(min = 8, max = 255)
+    private String senha;
+
 }
