@@ -1,6 +1,8 @@
 package com.sb.forum.dtos;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -19,9 +21,11 @@ public class MensagensTopicoDto {
     @NotNull
     private Date dataPublicacao;
     @NotNull
+    @JsonBackReference
     private TopicoDto idTopico;
     @NotNull
     private UsuarioDto idUsuario;
 
+    @JsonManagedReference
     private List<RespostasMensagensTopicosDto> listaRespostas;
 }

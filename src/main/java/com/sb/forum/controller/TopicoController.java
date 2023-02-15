@@ -1,5 +1,6 @@
 package com.sb.forum.controller;
 
+import com.sb.forum.dtos.TopicoDto;
 import com.sb.forum.entities.Topico;
 import com.sb.forum.services.TopicoService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,12 +21,12 @@ public class TopicoController {
     }
 
     @GetMapping
-    public List<Topico> getAll(){
+    public List<TopicoDto> getAll(){
         return topicoService.getAll();
     }
 
     @GetMapping(path = "/{id}")
-    public Topico getById(@PathVariable Long id){
+    public TopicoDto getById(@PathVariable Long id){
         return topicoService.getById(id);
     }
 }

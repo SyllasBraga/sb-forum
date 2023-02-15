@@ -1,5 +1,6 @@
 package com.sb.forum.services;
 
+import com.sb.forum.dtos.TopicoDto;
 import com.sb.forum.dtos.UsuarioDto;
 import com.sb.forum.entities.Topico;
 import com.sb.forum.entities.Usuario;
@@ -70,14 +71,14 @@ public class UsuarioService {
 
         return "O usuário "+ usuario.getNome() + " foi deletado do sistema com sucesso.";
     }
-    public Topico createTopico(Long idUsuario, Topico topico){
+    public TopicoDto createTopico(Long idUsuario, TopicoDto topico){
         UsuarioDto usuario = getById(idUsuario);
-        //topico.setIdAutor(usuario);
+        topico.setIdAutor(usuario);
 
         return topicoService.create(topico);
     }
 
-    public Topico updateTopico(Long idUsuario, Long idTopico, Topico topico){
+    public TopicoDto updateTopico(Long idUsuario, Long idTopico, TopicoDto topico){
         getById(idUsuario);
 
         return topicoService.update(idTopico, topico);
