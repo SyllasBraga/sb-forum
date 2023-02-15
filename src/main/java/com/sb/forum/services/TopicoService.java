@@ -50,7 +50,6 @@ public class TopicoService {
 
         topicoRepository.deleteById(topico.getId());
 
-        return "O usuário "+ topico.getTitulo() + " foi deletado do sistema com sucesso.";
+        return "O tópico "+ topico.getTitulo() + " foi deletado do sistema com sucesso.";
     }
-
 }

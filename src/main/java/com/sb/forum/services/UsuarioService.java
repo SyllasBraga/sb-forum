@@ -1,5 +1,6 @@
 package com.sb.forum.services;
 
+import com.sb.forum.entities.Topico;
 import com.sb.forum.entities.Usuario;
 import com.sb.forum.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
@@ -10,9 +11,11 @@ import java.util.List;
 public class UsuarioService {
 
     UsuarioRepository usuarioRepository;
+    TopicoService topicoService;
 
-    public UsuarioService(UsuarioRepository usuarioRepository) {
+    public UsuarioService(UsuarioRepository usuarioRepository, TopicoService topicoService) {
         this.usuarioRepository = usuarioRepository;
+        this.topicoService = topicoService;
     }
 
     public List<Usuario> getAll(){
@@ -51,5 +54,23 @@ public class UsuarioService {
         usuarioRepository.deleteById(usuario.getId());
 
         return "O usuário "+ usuario.getNome() + " foi deletado do sistema com sucesso.";
+    }
+    public Topico createTopico(Long idUsuario, Topico topico){
+        Usuario usuario = getById(idUsuario);
+        topico.setIdAutor(usuario);
+
+        return topicoService.create(topico);
+    }
+
+    public Topico updateTopico(Long idUsuario, Long idTopico, Topico topico){
+        getById(idUsuario);
+
+        return topicoService.update(idTopico, topico);
+    }
+
+    public String deleteTopico(Long idUsuario, Long idTopico){
+        getById(idUsuario);
+
+        return topicoService.delete(idTopico);
     }
 }

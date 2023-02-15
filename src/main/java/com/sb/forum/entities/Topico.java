@@ -18,8 +18,8 @@ public class Topico {
     private String conteudo;
     private Date dataPublicacao;
 
-    @OneToOne
-    @JoinColumn(name = "id")
+    @ManyToOne
+    @JoinColumn(name = "id_autor")
     private Usuario idAutor;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTopico", fetch = FetchType.LAZY)

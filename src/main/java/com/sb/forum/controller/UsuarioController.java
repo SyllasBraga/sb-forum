@@ -1,5 +1,6 @@
 package com.sb.forum.controller;
 
+import com.sb.forum.entities.Topico;
 import com.sb.forum.entities.Usuario;
 import com.sb.forum.services.UsuarioService;
 import org.springframework.http.ResponseEntity;
@@ -40,5 +41,21 @@ public class UsuarioController {
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) {
         return ResponseEntity.ok(usuarioService.delete(id));
+    }
+
+    @PostMapping(path = "/{id}/topicos")
+    public ResponseEntity<Topico> createTopico(@PathVariable Long id, @RequestBody Topico topico){
+        return ResponseEntity.ok().body(usuarioService.createTopico(id, topico));
+    }
+
+    @PutMapping(path = "/{id}/topicos/{idTopico}")
+    public ResponseEntity<Topico> updateTopico(@PathVariable Long id, @PathVariable Long idTopico,
+                                               @RequestBody Topico topico){
+        return ResponseEntity.ok().body(usuarioService.updateTopico(id, idTopico, topico));
+    }
+
+    @DeleteMapping(path = "/{id}/topicos/{idTopico}")
+    public ResponseEntity<String> deleteTopico(@PathVariable Long id, @PathVariable Long idTopico){
+        return ResponseEntity.ok().body(usuarioService.deleteTopico(id, idTopico));
     }
 }
