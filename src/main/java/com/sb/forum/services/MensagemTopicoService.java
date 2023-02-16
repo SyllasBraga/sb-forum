@@ -20,6 +20,11 @@ public class MensagemTopicoService {
         this.topicoService = topicoService;
     }
 
+    public MensagensTopicoDto getById(Long idMsg){
+        return toMsgDto(mensagensRepository.findById(idMsg).orElseThrow(
+                ()-> new NotFoundException("Entidade não encontrada.")));
+    }
+
     public MensagensTopicoDto create(Long idTopico, MensagensTopicoDto mensagensTopicoDto){
 
         mensagensTopicoDto.setIdTopico(topicoService.getById(idTopico));
