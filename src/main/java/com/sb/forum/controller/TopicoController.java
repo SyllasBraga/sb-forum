@@ -1,7 +1,6 @@
 package com.sb.forum.controller;
 
 import com.sb.forum.dtos.TopicoDto;
-import com.sb.forum.entities.Topico;
 import com.sb.forum.services.TopicoService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
