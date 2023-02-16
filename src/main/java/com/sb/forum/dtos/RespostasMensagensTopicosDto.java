@@ -18,7 +18,6 @@ public class RespostasMensagensTopicosDto {
     @NotNull
     private Date dataPublicacao;
 
-    @NotNull
     @JsonBackReference
     private MensagensTopicoDto idMensagem;
 

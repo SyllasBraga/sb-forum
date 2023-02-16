@@ -23,7 +23,7 @@ public class RespostasMensagensService {
 
     public RespostasMensagensTopicosDto create(Long idMensagem, RespostasMensagensTopicosDto respostaDto){
 
-        msgService.getById(idMensagem);
+        respostaDto.setIdMensagem(msgService.getById(idMensagem));
 
         RespostasMensagensTopico resposta = toResposta(respostaDto);
 
@@ -43,9 +43,9 @@ public class RespostasMensagensService {
 
     }
 
-    public String delete(Long idTopico){
+    public String delete(Long idMensagem){
 
-        return respostaRepository.findById(idTopico).map(Record -> {
+        return respostaRepository.findById(idMensagem).map(Record -> {
             respostaRepository.deleteById(Record.getId());
             return "A resposta foi deletada com sucesso.";
         }).orElseThrow(()-> new NotFoundException("Entidade não encontrada."));
