@@ -41,12 +41,10 @@ public class MensagemTopicoService {
 
     public String delete(Long idMsg){
 
-        mensagensRepository.findById(idMsg).map(Record -> {
+        return mensagensRepository.findById(idMsg).map(Record -> {
            mensagensRepository.deleteById(Record.getId());
-           return null;
+           return "A mensagem foi deletada com sucesso.";
         }).orElseThrow(()-> new NotFoundException("Entidade não encontrada."));
-
-        return "A mensagem foi deletada com sucesso.";
     }
 
     public MensagensTopicoDto toMsgDto(MensagensTopico msg){

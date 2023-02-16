@@ -23,8 +23,8 @@ public class MensagensTopico {
     @JoinColumn(name = "id_topico")
     private Topico idTopico;
 
-    @OneToOne
-    @PrimaryKeyJoinColumn(name = "id_usuario")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_usuario")
     private Usuario idUsuario;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMensagem", fetch = FetchType.LAZY)
