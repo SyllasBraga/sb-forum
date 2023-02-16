@@ -2,6 +2,7 @@ package com.sb.forum.services;
 
 import com.sb.forum.dtos.TopicoDto;
 import com.sb.forum.entities.Topico;
+import com.sb.forum.exceptions.NotFoundException;
 import com.sb.forum.repository.TopicoRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -34,7 +35,8 @@ public class TopicoService {
 
     public TopicoDto getById(Long id){
 
-        Topico topico = topicoRepository.findById(id).get();
+        Topico topico = topicoRepository.findById(id).orElseThrow(
+                () -> new NotFoundException("Entidade não encontrada."));
 
         return toTopicoDto(topico);
     }
@@ -58,7 +60,7 @@ public class TopicoService {
             topicoRepository.save(Record);
 
             return toTopicoDto(Record);
-        }).orElse(null);
+        }).orElseThrow(() -> new NotFoundException("Entidade não encontrada."));
     }
 
     public String delete(Long id){
@@ -66,7 +68,7 @@ public class TopicoService {
 
         topicoRepository.deleteById(topico.getId());
 
-        return "O tópico "+ topico.getTitulo() + " foi deletado do sistema com sucesso.";
+        return "O tópico '"+ topico.getTitulo() + "' foi deletado do sistema com sucesso.";
     }
 
     public TopicoDto toTopicoDto(Topico topico){

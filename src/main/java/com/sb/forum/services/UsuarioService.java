@@ -4,6 +4,7 @@ import com.sb.forum.dtos.TopicoDto;
 import com.sb.forum.dtos.UsuarioDto;
 import com.sb.forum.entities.Topico;
 import com.sb.forum.entities.Usuario;
+import com.sb.forum.exceptions.NotFoundException;
 import com.sb.forum.repository.UsuarioRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,8 @@ public class UsuarioService {
 
     public UsuarioDto getById(Long id){
 
-        Usuario usuario = usuarioRepository.findById(id).get();
+        Usuario usuario = usuarioRepository.findById(id).orElseThrow(
+                () -> new NotFoundException("Entidade não encontrada."));
 
         return toUsuarioDto(usuario);
     }
@@ -61,7 +63,7 @@ public class UsuarioService {
             usuarioRepository.save(Record);
 
             return toUsuarioDto(Record);
-        }).orElse(null);
+        }).orElseThrow(() -> new NotFoundException("Entidade não encontrada."));
     }
 
     public String delete(Long id){
