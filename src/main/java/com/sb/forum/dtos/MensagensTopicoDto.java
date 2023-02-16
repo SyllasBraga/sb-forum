@@ -3,7 +3,7 @@ package com.sb.forum.dtos;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -15,15 +15,15 @@ public class MensagensTopicoDto {
 
     private Long id;
 
-    @Size(min = 5, max = 500)
+    @Size(min = 5, max = 500, message = "Deve conter de 5 à 500 caracteres")
     private String mensagemConteudo;
 
-    @NotNull
+    @NotBlank(message = "Não pode ser nulo.")
     private Date dataPublicacao;
-    @NotNull
+    @NotBlank(message = "Não pode ser nulo.")
     @JsonBackReference
     private TopicoDto idTopico;
-    @NotNull
+    @NotBlank(message = "Não pode ser nulo.")
     private UsuarioDto idUsuario;
 
     @JsonManagedReference
