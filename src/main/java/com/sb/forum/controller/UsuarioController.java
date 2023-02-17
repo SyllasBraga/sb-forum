@@ -2,9 +2,8 @@ package com.sb.forum.controller;
 
 import com.sb.forum.dtos.TopicoDto;
 import com.sb.forum.dtos.UsuarioDto;
-import com.sb.forum.entities.Topico;
-import com.sb.forum.entities.Usuario;
 import com.sb.forum.services.UsuarioService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,7 +35,7 @@ public class UsuarioController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<UsuarioDto> update(@PathVariable Long id, @RequestBody UsuarioDto usuario) {
+    public ResponseEntity<UsuarioDto> update(@PathVariable Long id, @Valid @RequestBody UsuarioDto usuario) {
         return ResponseEntity.ok(usuarioService.update(id, usuario));
     }
 
@@ -46,13 +45,13 @@ public class UsuarioController {
     }
 
     @PostMapping(path = "/{id}/topicos")
-    public ResponseEntity<TopicoDto> createTopico(@PathVariable Long id, @RequestBody TopicoDto topico){
+    public ResponseEntity<TopicoDto> createTopico(@PathVariable Long id, @Valid @RequestBody TopicoDto topico){
         return ResponseEntity.ok().body(usuarioService.createTopico(id, topico));
     }
 
     @PutMapping(path = "/{id}/topicos/{idTopico}")
     public ResponseEntity<TopicoDto> updateTopico(@PathVariable Long id, @PathVariable Long idTopico,
-                                               @RequestBody TopicoDto topico){
+                                               @Valid @RequestBody TopicoDto topico){
         return ResponseEntity.ok().body(usuarioService.updateTopico(id, idTopico, topico));
     }
 
