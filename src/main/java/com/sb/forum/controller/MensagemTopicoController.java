@@ -2,6 +2,7 @@ package com.sb.forum.controller;
 
 import com.sb.forum.dtos.MensagensTopicoDto;
 import com.sb.forum.services.MensagemTopicoService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,13 +17,13 @@ public class MensagemTopicoController {
     }
 
     @PostMapping
-    public ResponseEntity<MensagensTopicoDto> create(@PathVariable Long idtopico, @RequestBody MensagensTopicoDto msg){
+    public ResponseEntity<MensagensTopicoDto> create(@PathVariable Long idtopico, @Valid @RequestBody MensagensTopicoDto msg){
         return ResponseEntity.ok(msgService.create(idtopico, msg));
     }
 
     @PutMapping(path = "/{idmensagem}")
     public ResponseEntity<MensagensTopicoDto> update(@PathVariable Long idtopico, @PathVariable Long idmensagem,
-                                                     @RequestBody MensagensTopicoDto msg){
+                                                     @Valid @RequestBody MensagensTopicoDto msg){
         return ResponseEntity.ok(msgService.update(idtopico, idmensagem, msg));
     }
 
