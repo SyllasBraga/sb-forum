@@ -18,11 +18,13 @@ public class UsuarioService {
     UsuarioRepository usuarioRepository;
     TopicoService topicoService;
     ModelMapper modelMapper;
+    EmailService emailService;
 
-    public UsuarioService(UsuarioRepository usuarioRepository, TopicoService topicoService, ModelMapper modelMapper) {
+    public UsuarioService(UsuarioRepository usuarioRepository, TopicoService topicoService, ModelMapper modelMapper, EmailService emailService) {
         this.usuarioRepository = usuarioRepository;
         this.topicoService = topicoService;
         this.modelMapper = modelMapper;
+        this.emailService = emailService;
     }
 
     public List<UsuarioDto> getAll(){
@@ -77,7 +79,14 @@ public class UsuarioService {
         UsuarioDto usuario = getById(idUsuario);
         topico.setIdAutor(usuario);
 
-        return topicoService.create(topico);
+        List<UsuarioDto> list = getAll();
+        list.remove(usuario);
+
+        TopicoDto topicoCriado = topicoService.create(topico);
+
+        emailService.sendForListOfUser(list, topico);
+
+        return topicoCriado;
     }
 
     public TopicoDto updateTopico(Long idUsuario, Long idTopico, TopicoDto topico){

@@ -12,7 +12,7 @@ senha varchar(255) not null
 create table topico(
 id int primary key not null auto_increment,
 titulo varchar(255) not null,
-conteudo varchar(255) not null,
+conteudo varchar(10000) not null,
 data_publicacao date not null,
 id_autor int not null
 );
@@ -48,7 +48,7 @@ add foreign key fk_id_topico_respt(id_mensagem) references respostas_mensagens_t
 alter table respostas_mensagens_topico
 add foreign key fk_id_usuario_respt(id_usuario) references usuario(id);
 
-insert into usuario(nome, login, senha) values ("João", "joão", "123"), ("Maria", "maria", "123");
+insert into usuario(nome, login, senha) values ("João", "syllasbraga2@gmail.com", "123"), ("Maria", "antoniobraga230959@gmail.com", "123");
 
 insert into topico values (default, "Programadores", "Os devs são f0d@s", "2023-02-10 17:05:39", 1);
 

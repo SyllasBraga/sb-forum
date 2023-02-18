@@ -18,7 +18,7 @@ public class TopicoDto {
     @Size(min = 5, max = 100, message = "Deve conter de 5 à 100 caracteres")
     private String titulo;
 
-    @Size(min = 10, max = 1000, message = "Deve conter de 5 à 1000 caracteres")
+    @Size(min = 100, max = 10000, message = "Deve conter de 100 à 10000 caracteres")
     private String conteudo;
 
     @PastOrPresent(message = "Não pode ser nulo e nem futura.")
