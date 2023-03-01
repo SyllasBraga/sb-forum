@@ -3,6 +3,6 @@ Api REST com funcionalidade de um fórum online, podendo cadastrar tópicos e re
 # Tecnologias utilizadas
 Java, Spring Web, Spring Jpa, MySQL, H2 DataBase, Lombok, Jakarta Validation, ModelMapper, Spring Email, Mensageria(RabbitMQ) e Swagger.
 # Deploy
-Link para acessar a aplicação em deploy: EM BREVE
+Link para acessar a aplicação em deploy: https://sb-forum.up.railway.app/
 # Documentação no swagger
-Link para acessar a documentação em deploy: EM BREVE
+Link para acessar a documentação em deploy: https://sb-forum.up.railway.app/swagger-ui/index.html#/
