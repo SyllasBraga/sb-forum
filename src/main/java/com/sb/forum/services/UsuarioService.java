@@ -2,7 +2,6 @@ package com.sb.forum.services;
 
 import com.sb.forum.dtos.TopicoDto;
 import com.sb.forum.dtos.UsuarioDto;
-import com.sb.forum.entities.Topico;
 import com.sb.forum.entities.Usuario;
 import com.sb.forum.exceptions.NotFoundException;
 import com.sb.forum.repository.UsuarioRepository;
