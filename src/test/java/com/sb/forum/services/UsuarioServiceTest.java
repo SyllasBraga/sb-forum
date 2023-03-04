@@ -37,9 +37,6 @@ class UsuarioServiceTest {
     private UsuarioDto userDto;
     private Usuario user;
     private Optional<Usuario> optUser;
-    private List<Usuario> listUsers;
-    private List<UsuarioDto> listUsersDto;
-
 
     @BeforeEach
     void setUp() {
@@ -50,11 +47,11 @@ class UsuarioServiceTest {
     @Test
     void whenGetAllReturnsListUsersDto() {
 
-        when(repository.findAll()).thenReturn(listUsers);
+        when(repository.findAll()).thenReturn(List.of(user));
 
         List<UsuarioDto> list = service.getAll();
 
-        Assertions.assertEquals(listUsersDto.getClass(), list.getClass());
+        Assertions.assertEquals(UsuarioDto.class, list.get(0).getClass());
     }
 
     @Test
@@ -116,7 +113,5 @@ class UsuarioServiceTest {
         user = new Usuario(ID, NOME, LOGIN, SENHA);
         userDto = new UsuarioDto(ID, NOME, LOGIN, SENHA);
         optUser = Optional.of(new Usuario(ID, NOME, LOGIN, SENHA));
-        listUsers = new ArrayList<>();
-        listUsersDto =  new ArrayList<>();
     }
 }
