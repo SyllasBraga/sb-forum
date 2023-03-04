@@ -2,6 +2,7 @@ package com.sb.forum.services;
 
 import com.sb.forum.dtos.UsuarioDto;
 import com.sb.forum.entities.Usuario;
+import com.sb.forum.exceptions.NotFoundException;
 import com.sb.forum.repository.UsuarioRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,6 +12,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Optional;
+
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 class UsuarioServiceTest {
 
@@ -42,16 +46,24 @@ class UsuarioServiceTest {
     @Test
     void whenFindByIdReturnsAnUser() {
 
-        Mockito.when(repository.findById(Mockito.anyLong())).thenReturn(optUser);
+        when(repository.findById(anyLong())).thenReturn(optUser);
 
         UsuarioDto usuario = service.getById(ID);
 
         Assertions.assertEquals(UsuarioDto.class, usuario.getClass());
-
     }
 
     @Test
-    void getById() {
+    void whenFindByReturnsEntityNotFound() {
+
+        when(repository.findById(anyLong())).thenThrow(new NotFoundException("Entidade não encontrada"));
+
+        try {
+            service.getById(ID);
+        }catch (Exception ex){
+            Assertions.assertEquals(NotFoundException.class, ex.getClass());
+        }
+
     }
 
     @Test
