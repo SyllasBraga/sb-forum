@@ -11,6 +11,8 @@ import org.mockito.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.Mockito.*;
@@ -35,6 +37,8 @@ class UsuarioServiceTest {
     private UsuarioDto userDto;
     private Usuario user;
     private Optional<Usuario> optUser;
+    private List<Usuario> listUsers;
+    private List<UsuarioDto> listUsersDto;
 
 
     @BeforeEach
@@ -44,7 +48,17 @@ class UsuarioServiceTest {
     }
 
     @Test
-    void whenFindByIdReturnsAnUser() {
+    void whenGetAllReturnsListUsersDto() {
+
+        when(repository.findAll()).thenReturn(listUsers);
+
+        List<UsuarioDto> list = service.getAll();
+
+        Assertions.assertEquals(listUsersDto.getClass(), list.getClass());
+    }
+
+    @Test
+    void whenGetByIdReturnsAnUser() {
 
         when(repository.findById(anyLong())).thenReturn(optUser);
 
@@ -54,7 +68,7 @@ class UsuarioServiceTest {
     }
 
     @Test
-    void whenFindByReturnsEntityNotFound() {
+    void whenGetByIdReturnsEntityNotFound() {
 
         when(repository.findById(anyLong())).thenThrow(new NotFoundException("Entidade não encontrada"));
 
@@ -102,5 +116,7 @@ class UsuarioServiceTest {
         user = new Usuario(ID, NOME, LOGIN, SENHA);
         userDto = new UsuarioDto(ID, NOME, LOGIN, SENHA);
         optUser = Optional.of(new Usuario(ID, NOME, LOGIN, SENHA));
+        listUsers = new ArrayList<>();
+        listUsersDto =  new ArrayList<>();
     }
 }
