@@ -78,7 +78,14 @@ class UsuarioServiceTest {
     }
 
     @Test
-    void create() {
+    void whenCreateReturnsOk() {
+
+        when(repository.save(any())).thenReturn(user);
+
+        UsuarioDto usuario = service.create(userDto);
+
+        Assertions.assertEquals(UsuarioDto.class, usuario.getClass());
+
     }
 
     @Test
