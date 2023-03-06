@@ -89,9 +89,28 @@ class UsuarioServiceTest {
     }
 
     @Test
-    void update() {
-    }
+    void whenUpdateReturnsOk() {
 
+        when(repository.findById(any())).thenReturn(optUser);
+
+        UsuarioDto usuario = service.update(userDto.getId(), userDto);
+
+        Assertions.assertEquals(UsuarioDto.class, usuario.getClass());
+
+    }
+    @Test
+    void whenUpdateReturnsEntityNotFound() {
+
+        when(repository.findById(any())).thenReturn(optUser);
+
+        try {
+            optUser.get().setId(3L);
+            UsuarioDto usuario = service.update(userDto.getId(), userDto);
+        }catch (Exception ex){
+            Assertions.assertEquals(NotFoundException.class, ex.getClass());
+        }
+
+    }
     @Test
     void delete() {
     }
