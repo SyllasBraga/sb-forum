@@ -112,9 +112,29 @@ class UsuarioServiceTest {
 
     }
     @Test
-    void delete() {
+    void whenDeleteReturnsOk() {
+
+        when(repository.findById(anyLong())).thenReturn(optUser);
+        doNothing().when(repository).deleteById(anyLong());
+
+        service.delete(userDto.getId());
+
+        verify(repository, times(1)).deleteById(anyLong());
+
     }
 
+    @Test
+    void whenDeleteReturnsEntityNotFound() {
+
+        when(repository.findById(any())).thenThrow(new NotFoundException("Entidade não encontrada."));
+
+        try {
+            service.delete(userDto.getId());
+        }catch (Exception ex){
+            Assertions.assertEquals(NotFoundException.class, ex.getClass());
+        }
+
+    }
     @Test
     void createTopico() {
     }
