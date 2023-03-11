@@ -1,5 +1,6 @@
 package com.sb.forum.services;
 
+import com.sb.forum.dtos.TopicoDto;
 import com.sb.forum.dtos.UsuarioDto;
 import com.sb.forum.entities.Usuario;
 import com.sb.forum.exceptions.NotFoundException;
@@ -9,9 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
 import org.modelmapper.ModelMapper;
-import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,12 +30,19 @@ class UsuarioServiceTest {
     @Mock
     private UsuarioRepository repository;
 
+    @Mock
+    private TopicoService topicoService;
+
+    @Mock
+    private EmailService emailService;
+
     @Spy
     private ModelMapper modelMapper;
 
     private UsuarioDto userDto;
     private Usuario user;
     private Optional<Usuario> optUser;
+    private TopicoDto topicoDto;
 
     @BeforeEach
     void setUp() {
@@ -109,7 +115,6 @@ class UsuarioServiceTest {
         }catch (Exception ex){
             Assertions.assertEquals(NotFoundException.class, ex.getClass());
         }
-
     }
     @Test
     void whenDeleteReturnsOk() {
@@ -136,7 +141,16 @@ class UsuarioServiceTest {
 
     }
     @Test
-    void createTopico() {
+    void whenCreateTopicoReturnsOk() {
+
+        when(topicoService.create(any())).thenReturn(topicoDto);
+        when(repository.findById(anyLong())).thenReturn(optUser);
+        when(repository.findAll()).thenReturn(List.of(user));
+        doNothing().when(emailService).sendForListOfUser(any(), any());
+
+        TopicoDto topico = service.createTopico(user.getId(), topicoDto);
+
+        Assertions.assertEquals(TopicoDto.class, topico.getClass());
     }
 
     @Test
@@ -159,5 +173,6 @@ class UsuarioServiceTest {
         user = new Usuario(ID, NOME, LOGIN, SENHA);
         userDto = new UsuarioDto(ID, NOME, LOGIN, SENHA);
         optUser = Optional.of(new Usuario(ID, NOME, LOGIN, SENHA));
+        topicoDto = new TopicoDto(1L, "teste", "teste", null, userDto, null);
     }
 }
