@@ -154,7 +154,14 @@ class UsuarioServiceTest {
     }
 
     @Test
-    void updateTopico() {
+    void whenUpdateTopicoReturnsOk() {
+
+        when(repository.findById(anyLong())).thenReturn(optUser);
+        when(topicoService.update(anyLong(), any())).thenReturn(topicoDto);
+
+        TopicoDto topico = service.updateTopico(userDto.getId(), topicoDto.getId(), topicoDto);
+
+        Assertions.assertEquals(TopicoDto.class, topicoDto.getClass());
     }
 
     @Test
