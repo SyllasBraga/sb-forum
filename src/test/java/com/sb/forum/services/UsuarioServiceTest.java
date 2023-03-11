@@ -165,15 +165,27 @@ class UsuarioServiceTest {
     }
 
     @Test
-    void deleteTopico() {
+    void whenUpdateTopicoReturnsNotFound() {
+
+        when(repository.findById(anyLong())).thenReturn(optUser);
+        when(topicoService.update(anyLong(), any())).thenReturn(topicoDto);
+
+        try {
+            TopicoDto topico = service.updateTopico(5L, topicoDto.getId(), topicoDto);
+        }catch (Exception ex){
+            Assertions.assertEquals(NotFoundException.class, ex.getClass());
+        }
     }
 
     @Test
-    void toUsuarioDto() {
-    }
+    void WhenDeleteTopicoReturnsOk() {
 
-    @Test
-    void toUsuario() {
+        when(repository.findById(anyLong())).thenReturn(optUser);
+        when(topicoService.delete(anyLong())).thenReturn(anyString());
+
+        String response = service.delete(topicoDto.getId());
+
+        Assertions.assertEquals(String.class, response.getClass());
     }
 
     private void startUsers(){
