@@ -2,10 +2,8 @@ package com.sb.forum.controller;
 
 import com.sb.forum.dtos.TopicoDto;
 import com.sb.forum.services.TopicoService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,5 +25,10 @@ public class TopicoController {
     @GetMapping(path = "/{id}")
     public TopicoDto getById(@PathVariable Long id){
         return topicoService.getById(id);
+    }
+
+    @GetMapping(path = "/busca-conteudo")
+    public ResponseEntity<List<TopicoDto>> getByConteudo(@RequestBody TopicoDto topicoDto){
+        return ResponseEntity.ok(topicoService.getByTopicoConteudo(topicoDto.getConteudo()));
     }
 }

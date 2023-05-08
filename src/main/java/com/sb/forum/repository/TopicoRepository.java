@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface TopicoRepository extends JpaRepository<Topico, Long> {
 
-    List<Topico> findByConteudoLike (String palavrasChave);
+    List<Topico> findByConteudoContains (String palavrasChave);
 }

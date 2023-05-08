@@ -44,7 +44,11 @@ public class TopicoService {
     public List<TopicoDto> getByTopicoConteudo(String palavrasChave){
 
         List<TopicoDto> listaDto = new ArrayList<>();
-        List<Topico> lista = topicoRepository.findByConteudoLike(palavrasChave);
+        List<Topico> lista = topicoRepository.findByConteudoContains(palavrasChave);
+
+        if (lista.isEmpty()){
+            throw new NotFoundException("Nenhum tópico encontrado!");
+        }
 
         lista.forEach(x->listaDto.add(toTopicoDto(x)));
 
