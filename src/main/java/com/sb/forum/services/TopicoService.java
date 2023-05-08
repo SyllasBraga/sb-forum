@@ -41,6 +41,16 @@ public class TopicoService {
         return toTopicoDto(topico);
     }
 
+    public List<TopicoDto> getByTopicoConteudo(String palavrasChave){
+
+        List<TopicoDto> listaDto = new ArrayList<>();
+        List<Topico> lista = topicoRepository.findByConteudoLike(palavrasChave);
+
+        lista.forEach(x->listaDto.add(toTopicoDto(x)));
+
+        return listaDto;
+    }
+
     public TopicoDto create(TopicoDto topicoDto){
 
         Topico topico = toTopico(topicoDto);
