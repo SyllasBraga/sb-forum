@@ -18,13 +18,13 @@ public class TopicoController {
     }
 
     @GetMapping
-    public List<TopicoDto> getAll(){
-        return topicoService.getAll();
+    public ResponseEntity<List<TopicoDto>> getAll(){
+        return ResponseEntity.ok(topicoService.getAll());
     }
 
     @GetMapping(path = "/{id}")
-    public TopicoDto getById(@PathVariable Long id){
-        return topicoService.getById(id);
+    public ResponseEntity<TopicoDto> getById(@PathVariable Long id){
+        return ResponseEntity.ok(topicoService.getById(id));
     }
 
     @GetMapping(path = "/busca-conteudo")
