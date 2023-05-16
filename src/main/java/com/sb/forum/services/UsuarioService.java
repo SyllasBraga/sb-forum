@@ -14,10 +14,11 @@ import java.util.List;
 @Service
 public class UsuarioService {
 
-    UsuarioRepository usuarioRepository;
-    TopicoService topicoService;
-    ModelMapper modelMapper;
-    EmailService emailService;
+    private final UsuarioRepository usuarioRepository;
+    private final TopicoService topicoService;
+    private final ModelMapper modelMapper;
+    private final EmailService emailService;
+    private static final String mensagemEntidadeNaoEncontrada = "Entidade não encontrada.";
 
     public UsuarioService(UsuarioRepository usuarioRepository, TopicoService topicoService, ModelMapper modelMapper, EmailService emailService) {
         this.usuarioRepository = usuarioRepository;
@@ -41,7 +42,7 @@ public class UsuarioService {
     public UsuarioDto getById(Long id){
 
         Usuario usuario = usuarioRepository.findById(id).orElseThrow(
-                () -> new NotFoundException("Entidade não encontrada."));
+                () -> new NotFoundException(mensagemEntidadeNaoEncontrada));
 
         return toUsuarioDto(usuario);
     }
@@ -64,7 +65,7 @@ public class UsuarioService {
             usuarioRepository.save(Record);
 
             return toUsuarioDto(Record);
-        }).orElseThrow(() -> new NotFoundException("Entidade não encontrada."));
+        }).orElseThrow(() -> new NotFoundException(mensagemEntidadeNaoEncontrada));
     }
 
     public String delete(Long id){

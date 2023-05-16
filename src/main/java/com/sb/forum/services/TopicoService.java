@@ -13,8 +13,9 @@ import java.util.List;
 @Service
 public class TopicoService {
 
-    private TopicoRepository topicoRepository;
-    private ModelMapper modelMapper;
+    private final TopicoRepository topicoRepository;
+    private final ModelMapper modelMapper;
+    private static final String mensagemEntidadeNaoEncontrada = "Entidade não encontrada.";
 
     public TopicoService(TopicoRepository topicoRepository, ModelMapper modelMapper) {
         this.topicoRepository = topicoRepository;
@@ -36,7 +37,7 @@ public class TopicoService {
     public TopicoDto getById(Long id){
 
         Topico topico = topicoRepository.findById(id).orElseThrow(
-                () -> new NotFoundException("Entidade não encontrada."));
+                () -> new NotFoundException(mensagemEntidadeNaoEncontrada));
 
         return toTopicoDto(topico);
     }
@@ -74,7 +75,7 @@ public class TopicoService {
             topicoRepository.save(Record);
 
             return toTopicoDto(Record);
-        }).orElseThrow(() -> new NotFoundException("Entidade não encontrada."));
+        }).orElseThrow(() -> new NotFoundException(mensagemEntidadeNaoEncontrada));
     }
 
     public String delete(Long id){

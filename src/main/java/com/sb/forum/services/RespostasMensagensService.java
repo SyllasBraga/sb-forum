@@ -10,9 +10,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class RespostasMensagensService {
 
-    private RespostaMensagensRepository respostaRepository;
-    private ModelMapper modelMapper;
-    private MensagemTopicoService msgService;
+    private final RespostaMensagensRepository respostaRepository;
+    private final ModelMapper modelMapper;
+    private final MensagemTopicoService msgService;
+    private final String mensagemEntidadeNaoEncontrada = "Entidade não encontrada";
 
     public RespostasMensagensService(RespostaMensagensRepository respostaRepository, ModelMapper modelMapper,
                                      MensagemTopicoService msgService) {
@@ -39,7 +40,7 @@ public class RespostasMensagensService {
             Record.setRespostaConteudo(respostaDto.getRespostaConteudo());
 
             return toRespostaDto(respostaRepository.save(Record));
-        }).orElseThrow(()-> new NotFoundException("Entidade não encontrada"));
+        }).orElseThrow(()-> new NotFoundException(mensagemEntidadeNaoEncontrada));
 
     }
 
@@ -48,7 +49,7 @@ public class RespostasMensagensService {
         return respostaRepository.findById(idMensagem).map(Record -> {
             respostaRepository.deleteById(Record.getId());
             return "A resposta foi deletada com sucesso.";
-        }).orElseThrow(()-> new NotFoundException("Entidade não encontrada."));
+        }).orElseThrow(()-> new NotFoundException(mensagemEntidadeNaoEncontrada));
 
     }
 

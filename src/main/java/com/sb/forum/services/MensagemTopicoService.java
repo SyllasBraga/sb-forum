@@ -10,9 +10,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class MensagemTopicoService {
 
-    private MensagensRepository mensagensRepository;
-    private ModelMapper modelMapper;
-    private TopicoService topicoService;
+    private final MensagensRepository mensagensRepository;
+    private final ModelMapper modelMapper;
+    private final TopicoService topicoService;
+    private final String mensagemEntidadeNaoEncontrada = "Entidade não encontrada.";
 
     public MensagemTopicoService(MensagensRepository mensagensRepository, ModelMapper modelMapper, TopicoService topicoService) {
         this.mensagensRepository = mensagensRepository;
@@ -22,7 +23,7 @@ public class MensagemTopicoService {
 
     public MensagensTopicoDto getById(Long idMsg){
         return toMsgDto(mensagensRepository.findById(idMsg).orElseThrow(
-                ()-> new NotFoundException("Entidade não encontrada.")));
+                ()-> new NotFoundException(mensagemEntidadeNaoEncontrada)));
     }
 
     public MensagensTopicoDto create(Long idTopico, MensagensTopicoDto mensagensTopicoDto){
@@ -41,7 +42,7 @@ public class MensagemTopicoService {
             Record.setMensagemConteudo(mensagensTopicoDto.getMensagemConteudo());
 
             return toMsgDto(mensagensRepository.save(Record));
-        }).orElseThrow(()-> new NotFoundException("Entidade não encontrada."));
+        }).orElseThrow(()-> new NotFoundException(mensagemEntidadeNaoEncontrada));
     }
 
     public String delete(Long idMsg){
@@ -49,7 +50,7 @@ public class MensagemTopicoService {
         return mensagensRepository.findById(idMsg).map(Record -> {
            mensagensRepository.deleteById(Record.getId());
            return "A mensagem foi deletada com sucesso.";
-        }).orElseThrow(()-> new NotFoundException("Entidade não encontrada."));
+        }).orElseThrow(()-> new NotFoundException(mensagemEntidadeNaoEncontrada));
     }
 
     public MensagensTopicoDto toMsgDto(MensagensTopico msg){

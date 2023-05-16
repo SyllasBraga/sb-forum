@@ -11,7 +11,7 @@ import java.util.List;
 @RequestMapping(path = "/topicos")
 public class TopicoController {
 
-    private TopicoService topicoService;
+    private final TopicoService topicoService;
 
     public TopicoController(TopicoService topicoService) {
         this.topicoService = topicoService;

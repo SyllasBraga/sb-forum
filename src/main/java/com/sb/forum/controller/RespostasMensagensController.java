@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/topicos/{idtopico}/mensagens/{idmensagem}/respostas")
 public class RespostasMensagensController {
 
-    private RespostasMensagensService respostasService;
+    private final RespostasMensagensService respostasService;
 
     public RespostasMensagensController(RespostasMensagensService respostasService) {
         this.respostasService = respostasService;

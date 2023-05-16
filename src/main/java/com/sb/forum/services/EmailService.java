@@ -13,8 +13,8 @@ import java.util.List;
 public class EmailService {
 
     @Value("${spring.mail.username}")
-    private String APP_EMAIL;
-    private JavaMailSender emailSender;
+    private static String APP_EMAIL;
+    private static JavaMailSender emailSender;
 
     public EmailService(JavaMailSender emailSender) {
         this.emailSender = emailSender;
