@@ -6,13 +6,16 @@ import com.sb.forum.entities.Usuario;
 import com.sb.forum.exceptions.NotFoundException;
 import com.sb.forum.repository.UsuarioRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UsuarioService {
+public class UsuarioService implements UserDetailsService {
 
     private final UsuarioRepository usuarioRepository;
     private final TopicoService topicoService;
@@ -107,5 +110,14 @@ public class UsuarioService {
 
     public Usuario toUsuario(UsuarioDto usuarioDto){
         return modelMapper.map(usuarioDto, Usuario.class);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Usuario usuario = usuarioRepository.findByLogin(username);
+        if (usuario == null){
+            throw new UsernameNotFoundException("Login não encontrado");
+        }
+        return usuario;
     }
 }
