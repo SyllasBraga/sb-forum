@@ -38,6 +38,19 @@ CONSTRAINT id_usuario_respt_foreign foreign key (id_usuario) references usuario(
 CONSTRAINT mensagem_fk foreign key (id_mensagem) references mensagens_topico(id)
 );
 
+create table roles(
+id int not null auto_increment,
+tipo_acesso varchar(255) not null,
+primary key (id)
+);
+
+create table usuario_roles(
+id_role int not null,
+id_usuario int not null,
+CONSTRAINT id_role_fk foreign key (id_role) references roles(id),
+CONSTRAINT id_usuario_role_fk foreign key (id_usuario) references usuario(id) 
+);
+
 insert into usuario(nome, login, senha) values ('João', 'syllasbraga2@gmail.com', '123');
 insert into usuario(nome, login, senha) values ('Maria', 'antoniobraga230959@gmail.com', '123');
 
@@ -54,3 +67,14 @@ insert into mensagens_topico values(default, 'Devs que conhecem são mais disput
 
 insert into respostas_mensagens_topico values (default, 'Sim, por isso a remuneração é maior','2023-02-10 17:11:21', 2, 1);
 insert into respostas_mensagens_topico values (default, 'Na maioria das vezes','2023-02-10 17:12:34', 2, 2);
+
+insert into roles values (default, 'user');
+insert into roles values (default, 'moderator');
+
+insert into usuario_roles values (1,1);
+insert into usuario_roles values (2,1);
+insert into usuario_roles values (1,2);
+
+select u.*, ro.tipo_acesso from usuario u
+inner join usuario_roles u_r on u_r.id_usuario = u.id
+inner join roles ro on u_r.id_role = ro.id
