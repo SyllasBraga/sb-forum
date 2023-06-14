@@ -74,7 +74,3 @@ insert into roles values (default, 'moderator');
 insert into usuario_roles values (1,1);
 insert into usuario_roles values (2,1);
 insert into usuario_roles values (1,2);
-
-select u.*, ro.tipo_acesso from usuario u
-inner join usuario_roles u_r on u_r.id_usuario = u.id
-inner join roles ro on u_r.id_role = ro.id
