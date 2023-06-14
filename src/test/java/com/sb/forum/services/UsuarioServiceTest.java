@@ -189,9 +189,9 @@ class UsuarioServiceTest {
     }
 
     private void startUsers(){
-        user = new Usuario(ID, NOME, LOGIN, SENHA);
-        userDto = new UsuarioDto(ID, NOME, LOGIN, SENHA);
-        optUser = Optional.of(new Usuario(ID, NOME, LOGIN, SENHA));
+        user = new Usuario(ID, NOME, LOGIN, SENHA, null);
+        userDto = new UsuarioDto(ID, NOME, LOGIN, SENHA, null);
+        optUser = Optional.of(new Usuario(ID, NOME, LOGIN, SENHA, null));
         topicoDto = new TopicoDto(1L, "teste", "teste", null, userDto, null);
     }
 }
