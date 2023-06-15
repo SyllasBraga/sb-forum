@@ -1,9 +1,9 @@
 package com.sb.forum.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.*;
 import lombok.Data;
 
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity

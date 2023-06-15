@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,14 +22,19 @@ public class UsuarioService implements UserDetailsService {
     private final TopicoService topicoService;
     private final ModelMapper modelMapper;
     private final EmailService emailService;
-    private static final String mensagemEntidadeNaoEncontrada = "Entidade não encontrada.";
+    private final BCryptPasswordEncoder passwordEncoder;
 
-    public UsuarioService(UsuarioRepository usuarioRepository, TopicoService topicoService, ModelMapper modelMapper, EmailService emailService) {
+    public UsuarioService(UsuarioRepository usuarioRepository, TopicoService topicoService, ModelMapper modelMapper, EmailService emailService, BCryptPasswordEncoder passwordEncoder) {
         this.usuarioRepository = usuarioRepository;
         this.topicoService = topicoService;
         this.modelMapper = modelMapper;
         this.emailService = emailService;
+        this.passwordEncoder = passwordEncoder;
     }
+
+    private static final String mensagemEntidadeNaoEncontrada = "Entidade não encontrada.";
+
+
 
     public List<UsuarioDto> getAll(){
 
@@ -53,6 +59,7 @@ public class UsuarioService implements UserDetailsService {
     public UsuarioDto create(UsuarioDto usuarioDto){
 
         Usuario usuario = toUsuario(usuarioDto);
+        usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
 
         return toUsuarioDto(usuarioRepository.save(usuario));
     }
@@ -64,7 +71,7 @@ public class UsuarioService implements UserDetailsService {
         return usuarioRepository.findById(id).map(Record ->{
             Record.setNome(usuario.getNome());
             Record.setLogin(usuario.getLogin());
-            Record.setSenha(usuario.getSenha());
+            Record.setSenha(passwordEncoder.encode(usuario.getSenha()));
             usuarioRepository.save(Record);
 
             return toUsuarioDto(Record);
@@ -115,6 +122,7 @@ public class UsuarioService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Usuario usuario = usuarioRepository.findByLogin(username);
+
         if (usuario == null){
             throw new UsernameNotFoundException("Login não encontrado");
         }

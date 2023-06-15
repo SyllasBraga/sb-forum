@@ -1,13 +1,15 @@
 package com.sb.forum.entities;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -24,7 +26,7 @@ public class Usuario implements UserDetails {
     private String login;
     private String senha;
 
-    @ManyToMany
+    @ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "usuario_roles",
             joinColumns = @JoinColumn(name = "id_usuario"),
             inverseJoinColumns = @JoinColumn(name = "id_role"))
@@ -32,12 +34,14 @@ public class Usuario implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<SimpleGrantedAuthority> listAuthorities = new ArrayList<>();
+        acessos.forEach(acesso -> listAuthorities.add(new SimpleGrantedAuthority(acesso.getTipoAcesso())));
+        return listAuthorities;
     }
 
     @Override
     public String getPassword() {
-        return null;
+        return senha;
     }
 
     @Override
