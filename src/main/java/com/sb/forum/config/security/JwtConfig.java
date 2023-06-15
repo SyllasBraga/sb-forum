@@ -1,4 +1,4 @@
-package com.sb.forum.config;
+package com.sb.forum.config.security;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
