@@ -14,8 +14,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     private final JwtTokenStore tokenStore;
     private static final String[] PUBLIC = {"/oauth/token"};
-    private static final String[] USUARIO_OU_MODERADOR = {"/topicos/**"};
-    private static final String[] MODERADOR = {"/usuarios/**"};
+    private static final String[] USUARIO_OU_MODERADOR = {"topicos/**"};
+    private static final String[] MODERADOR = {"usuarios/**"};
 
     public ResourceServerConfig(JwtTokenStore tokenStore) {
         this.tokenStore = tokenStore;
@@ -31,7 +31,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers(PUBLIC).permitAll()
                 .antMatchers(HttpMethod.GET, USUARIO_OU_MODERADOR).permitAll()
-                .antMatchers(USUARIO_OU_MODERADOR).hasAnyRole("user", "moderator")
+                .antMatchers(USUARIO_OU_MODERADOR).hasAnyRole("user","moderator")
                 .antMatchers(MODERADOR).hasRole("moderator")
                 .anyRequest().authenticated();
     }
