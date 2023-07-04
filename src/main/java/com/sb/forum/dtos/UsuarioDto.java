@@ -8,13 +8,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class UsuarioDto {
 
-    private Long id;
+    private UUID id;
 
     @Size(min = 3, max = 255, message = "Deve conter de 3 à 255 caracteres")
     private String nome;

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UsuarioService implements UserDetailsService {
@@ -21,20 +22,15 @@ public class UsuarioService implements UserDetailsService {
     private final UsuarioRepository usuarioRepository;
     private final TopicoService topicoService;
     private final ModelMapper modelMapper;
-    private final EmailService emailService;
     private final BCryptPasswordEncoder passwordEncoder;
+    private static final String mensagemEntidadeNaoEncontrada = "Entidade não encontrada.";
 
-    public UsuarioService(UsuarioRepository usuarioRepository, TopicoService topicoService, ModelMapper modelMapper, EmailService emailService, BCryptPasswordEncoder passwordEncoder) {
+    public UsuarioService(UsuarioRepository usuarioRepository, TopicoService topicoService, ModelMapper modelMapper, BCryptPasswordEncoder passwordEncoder) {
         this.usuarioRepository = usuarioRepository;
         this.topicoService = topicoService;
         this.modelMapper = modelMapper;
-        this.emailService = emailService;
         this.passwordEncoder = passwordEncoder;
     }
-
-    private static final String mensagemEntidadeNaoEncontrada = "Entidade não encontrada.";
-
-
 
     public List<UsuarioDto> getAll(){
 
@@ -48,7 +44,7 @@ public class UsuarioService implements UserDetailsService {
         return listaDto;
     }
 
-    public UsuarioDto getById(Long id){
+    public UsuarioDto getById(UUID id){
 
         Usuario usuario = usuarioRepository.findById(id).orElseThrow(
                 () -> new NotFoundException(mensagemEntidadeNaoEncontrada));
@@ -59,12 +55,13 @@ public class UsuarioService implements UserDetailsService {
     public UsuarioDto create(UsuarioDto usuarioDto){
 
         Usuario usuario = toUsuario(usuarioDto);
+        usuario.setId(UUID.randomUUID());
         usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
 
         return toUsuarioDto(usuarioRepository.save(usuario));
     }
 
-    public UsuarioDto update(Long id, UsuarioDto usuarioDto) {
+    public UsuarioDto update(UUID id, UsuarioDto usuarioDto) {
 
         Usuario usuario = toUsuario(usuarioDto);
 
@@ -78,18 +75,12 @@ public class UsuarioService implements UserDetailsService {
         }).orElseThrow(() -> new NotFoundException(mensagemEntidadeNaoEncontrada));
     }
 
-    public String delete(Long id){
+    public String delete(UUID id){
         UsuarioDto usuario = getById(id);
 
         usuarioRepository.deleteById(usuario.getId());
 
         return "O usuário "+ usuario.getNome() + " foi deletado do sistema com sucesso.";
-    }
-
-    public String deleteTopico(Long idUsuario, Long idTopico){
-        getById(idUsuario);
-
-        return topicoService.delete(idTopico);
     }
 
     public UsuarioDto toUsuarioDto(Usuario usuario){
