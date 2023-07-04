@@ -44,19 +44,4 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioService.delete(id));
     }
 
-    @PostMapping(path = "/{id}/topicos")
-    public ResponseEntity<TopicoDto> createTopico(@PathVariable Long id, @Valid @RequestBody TopicoDto topico){
-        return ResponseEntity.ok().body(usuarioService.createTopico(id, topico));
-    }
-
-    @PutMapping(path = "/{id}/topicos/{idTopico}")
-    public ResponseEntity<TopicoDto> updateTopico(@PathVariable Long id, @PathVariable Long idTopico,
-                                               @Valid @RequestBody TopicoDto topico){
-        return ResponseEntity.ok().body(usuarioService.updateTopico(id, idTopico, topico));
-    }
-
-    @DeleteMapping(path = "/{id}/topicos/{idTopico}")
-    public ResponseEntity<String> deleteTopico(@PathVariable Long id, @PathVariable Long idTopico){
-        return ResponseEntity.ok().body(usuarioService.deleteTopico(id, idTopico));
-    }
 }

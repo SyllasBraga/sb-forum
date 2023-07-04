@@ -140,42 +140,6 @@ class UsuarioServiceTest {
         }
 
     }
-    @Test
-    void whenCreateTopicoReturnsOk() {
-
-        when(topicoService.create(any())).thenReturn(topicoDto);
-        when(repository.findById(anyLong())).thenReturn(optUser);
-        when(repository.findAll()).thenReturn(List.of(user));
-        doNothing().when(emailService).sendForListOfUser(any(), any());
-
-        TopicoDto topico = service.createTopico(user.getId(), topicoDto);
-
-        Assertions.assertEquals(TopicoDto.class, topico.getClass());
-    }
-
-    @Test
-    void whenUpdateTopicoReturnsOk() {
-
-        when(repository.findById(anyLong())).thenReturn(optUser);
-        when(topicoService.update(anyLong(), any())).thenReturn(topicoDto);
-
-        TopicoDto topico = service.updateTopico(userDto.getId(), topicoDto.getId(), topicoDto);
-
-        Assertions.assertEquals(TopicoDto.class, topicoDto.getClass());
-    }
-
-    @Test
-    void whenUpdateTopicoReturnsNotFound() {
-
-        when(repository.findById(anyLong())).thenReturn(optUser);
-        when(topicoService.update(anyLong(), any())).thenReturn(topicoDto);
-
-        try {
-            TopicoDto topico = service.updateTopico(5L, topicoDto.getId(), topicoDto);
-        }catch (Exception ex){
-            Assertions.assertEquals(NotFoundException.class, ex.getClass());
-        }
-    }
 
     @Test
     void WhenDeleteTopicoReturnsOk() {

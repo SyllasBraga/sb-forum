@@ -85,25 +85,6 @@ public class UsuarioService implements UserDetailsService {
 
         return "O usuário "+ usuario.getNome() + " foi deletado do sistema com sucesso.";
     }
-    public TopicoDto createTopico(Long idUsuario, TopicoDto topico){
-        UsuarioDto usuario = getById(idUsuario);
-        topico.setIdAutor(usuario);
-
-        List<UsuarioDto> list = getAll();
-        list.remove(usuario);
-
-        TopicoDto topicoCriado = topicoService.create(topico);
-
-        emailService.sendForListOfUser(list, topico);
-
-        return topicoCriado;
-    }
-
-    public TopicoDto updateTopico(Long idUsuario, Long idTopico, TopicoDto topico){
-        getById(idUsuario);
-
-        return topicoService.update(idTopico, topico);
-    }
 
     public String deleteTopico(Long idUsuario, Long idTopico){
         getById(idUsuario);
