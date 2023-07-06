@@ -15,8 +15,8 @@ insert into mensagens_topico values(default, 'Devs que conhecem são mais disput
 insert into respostas_mensagens_topico values (default, 'Sim, por isso a remuneração é maior','2023-02-10 17:11:21', 2, 'bccddbc0-1ab0-11ee-be56-0242ac120002');
 insert into respostas_mensagens_topico values (default, 'Na maioria das vezes','2023-02-10 17:12:34', 2, '4f446fbe-1ab1-11ee-be56-0242ac120002');
 
-insert into roles values (default, 'user');
-insert into roles values (default, 'moderator');
+insert into roles values (default, 'USER');
+insert into roles values (default, 'MODERATOR');
 
 insert into usuario_roles values (1,'bccddbc0-1ab0-11ee-be56-0242ac120002');
 insert into usuario_roles values (2,'bccddbc0-1ab0-11ee-be56-0242ac120002');

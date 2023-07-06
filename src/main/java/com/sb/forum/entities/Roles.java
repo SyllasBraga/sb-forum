@@ -1,6 +1,8 @@
 package com.sb.forum.entities;
 
 import javax.persistence.*;
+
+import com.sb.forum.enums.RolesEnum;
 import lombok.Data;
 
 @Entity
@@ -10,5 +12,6 @@ public class Roles {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String tipoAcesso;
+    @Enumerated(EnumType.STRING)
+    private RolesEnum tipoAcesso;
 }

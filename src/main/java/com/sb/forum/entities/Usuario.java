@@ -37,7 +37,7 @@ public class Usuario implements UserDetails{
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> listAuthorities = new ArrayList<>();
-        acessos.forEach(acesso -> listAuthorities.add(new SimpleGrantedAuthority(acesso.getTipoAcesso())));
+        acessos.forEach(acesso -> listAuthorities.add(new SimpleGrantedAuthority(acesso.getTipoAcesso().toString())));
         return listAuthorities;
     }
 
