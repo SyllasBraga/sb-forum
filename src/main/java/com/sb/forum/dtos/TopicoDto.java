@@ -28,7 +28,7 @@ public class TopicoDto {
     @PastOrPresent(message = "Não pode ser nulo e nem futura.")
     private Date dataPublicacao;
 
-    private UsuarioDto idAutor;
+    private UsuarioTopicoDto idAutor;
 
     @JsonManagedReference
     private List<MensagensTopicoDto> listMensagens;

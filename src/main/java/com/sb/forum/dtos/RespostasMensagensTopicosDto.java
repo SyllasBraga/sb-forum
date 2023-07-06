@@ -23,5 +23,5 @@ public class RespostasMensagensTopicosDto {
     private MensagensTopicoDto idMensagem;
 
     @NotBlank(message = "Não pode ser nulo.")
-    private UsuarioDto idUsuario;
+    private UsuarioTopicoDto idUsuario;
 }

@@ -24,7 +24,7 @@ public class MensagensTopicoDto {
     @JsonBackReference
     private TopicoDto idTopico;
     @NotBlank(message = "Não pode ser nulo.")
-    private UsuarioDto idUsuario;
+    private UsuarioTopicoDto idUsuario;
 
     @JsonManagedReference
     private List<RespostasMensagensTopicosDto> listaRespostas;
