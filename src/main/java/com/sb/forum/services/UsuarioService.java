@@ -2,7 +2,9 @@ package com.sb.forum.services;
 
 import com.sb.forum.dtos.TopicoDto;
 import com.sb.forum.dtos.UsuarioDto;
+import com.sb.forum.entities.Roles;
 import com.sb.forum.entities.Usuario;
+import com.sb.forum.enums.RolesEnum;
 import com.sb.forum.exceptions.NotFoundException;
 import com.sb.forum.repository.UsuarioRepository;
 import org.modelmapper.ModelMapper;
@@ -56,6 +58,7 @@ public class UsuarioService implements UserDetailsService {
 
         Usuario usuario = toUsuario(usuarioDto);
         usuario.setId(UUID.randomUUID());
+        usuario.setAcessos(List.of(new Roles(1L, RolesEnum.USER)));
         usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
 
         return toUsuarioDto(usuarioRepository.save(usuario));
