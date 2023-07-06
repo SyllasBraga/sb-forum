@@ -1,6 +1,5 @@
 package com.sb.forum.services;
 
-import com.sb.forum.dtos.TopicoDto;
 import com.sb.forum.dtos.UsuarioDto;
 import com.sb.forum.entities.Roles;
 import com.sb.forum.entities.Usuario;
@@ -84,6 +83,15 @@ public class UsuarioService implements UserDetailsService {
         usuarioRepository.deleteById(usuario.getId());
 
         return "O usuário "+ usuario.getNome() + " foi deletado do sistema com sucesso.";
+    }
+
+    public UsuarioDto concederAcessoModerator(String idUsuarioDto){
+        UUID idUsuario = UUID.fromString(idUsuarioDto);
+
+        return usuarioRepository.findById(idUsuario).map(Record -> {
+            Record.getAcessos().add(new Roles(2L, RolesEnum.MODERATOR));
+            return toUsuarioDto(usuarioRepository.save(Record));
+        }).orElseThrow(() -> new NotFoundException("Usuário não encontrado."));
     }
 
     public UsuarioDto toUsuarioDto(Usuario usuario){

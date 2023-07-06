@@ -45,4 +45,8 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioService.delete(id));
     }
 
+    @PostMapping(path = "/conceder-acesso-moderator/{idUsuario}")
+    public ResponseEntity<UsuarioDto> concederAcessoModerator (@PathVariable String idUsuario){
+        return ResponseEntity.ok(usuarioService.concederAcessoModerator(idUsuario));
+    }
 }
