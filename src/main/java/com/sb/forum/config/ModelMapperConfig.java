@@ -18,7 +18,7 @@ public class ModelMapperConfig {
         modelMapper.addMappings(new PropertyMap<Topico, TopicoDto>() {
             @Override
             protected void configure() {
-                map().getIdAutor().setId(source.getIdAutor().getId());
+                map().setIdAutor(source.getIdAutor().getId());
             }
         });
         return modelMapper;

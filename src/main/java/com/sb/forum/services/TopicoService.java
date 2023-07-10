@@ -1,7 +1,9 @@
 package com.sb.forum.services;
 
 import com.sb.forum.dtos.TopicoDto;
+import com.sb.forum.entities.TopicStatus;
 import com.sb.forum.entities.Topico;
+import com.sb.forum.enums.TopicStatusEnum;
 import com.sb.forum.exceptions.NotFoundException;
 import com.sb.forum.repository.TopicoRepository;
 import org.modelmapper.ModelMapper;
@@ -15,11 +17,13 @@ public class TopicoService {
 
     private final TopicoRepository topicoRepository;
     private final ModelMapper modelMapper;
+    private final TopicStatusService topicStatusService;
     private static final String mensagemEntidadeNaoEncontrada = "Entidade não encontrada.";
 
-    public TopicoService(TopicoRepository topicoRepository, ModelMapper modelMapper) {
+    public TopicoService(TopicoRepository topicoRepository, ModelMapper modelMapper, TopicStatusService topicStatusService) {
         this.topicoRepository = topicoRepository;
         this.modelMapper = modelMapper;
+        this.topicStatusService = topicStatusService;
     }
 
     public List<TopicoDto> getAll(){
@@ -59,8 +63,10 @@ public class TopicoService {
     public TopicoDto create(TopicoDto topicoDto){
 
         Topico topico = toTopico(topicoDto);
+        Topico topicoCriado = topicoRepository.save(topico);
+        topicStatusService.criarTopicStatus(new TopicStatus(TopicStatusEnum.REVIEW, topicoCriado));
 
-        return toTopicoDto(topicoRepository.save(topico));
+        return toTopicoDto(topico);
     }
 
     public TopicoDto update(Long id, TopicoDto topicoDto) {

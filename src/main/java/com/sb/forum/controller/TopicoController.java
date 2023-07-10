@@ -34,7 +34,7 @@ public class TopicoController {
     }
 
     @PostMapping
-    public ResponseEntity<TopicoDto> createTopico(@PathVariable Long id, @Valid @RequestBody TopicoDto topico){
+    public ResponseEntity<TopicoDto> createTopico(@Valid @RequestBody TopicoDto topico){
         return ResponseEntity.ok().body(topicoService.create(topico));
     }
 

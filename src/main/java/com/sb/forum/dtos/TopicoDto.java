@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -28,7 +29,8 @@ public class TopicoDto {
     @PastOrPresent(message = "Não pode ser nulo e nem futura.")
     private Date dataPublicacao;
 
-    private UsuarioTopicoDto idAutor;
+    @NotBlank(message = "Não pode ser nulo.")
+    private UUID idAutor;
 
     @JsonManagedReference
     private List<MensagensTopicoDto> listMensagens;
