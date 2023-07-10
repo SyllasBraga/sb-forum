@@ -1,5 +1,5 @@
 package com.sb.forum.enums;
 
-public enum TopicStatus {
+public enum TopicStatusEnum {
     APPROVED, DELETED, REVIEW
 }
