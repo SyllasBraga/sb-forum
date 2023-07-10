@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TopicStatusRepository extends JpaRepository<TopicStatus, Long> {
+
+    TopicStatus findByIdTopico (Long idTopico);
 }

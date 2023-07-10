@@ -16,4 +16,5 @@ public class TopicStatusService {
     public void criarTopicStatus(TopicStatus topicStatus){
         topicStatusRepository.save(topicStatus);
     }
+
 }
