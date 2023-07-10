@@ -50,3 +50,14 @@ id_usuario varchar(36) not null,
 CONSTRAINT id_role_fk foreign key (id_role) references roles(id),
 CONSTRAINT id_usuario_role_fk foreign key (id_usuario) references usuario(id)
 );
+
+create table topico_status(
+id int not null auto_increment,
+status varchar(255) not null,
+mensagem varchar(1000) not null,
+id_topico int not null,
+id_moderator varchar(36),
+primary key(id),
+CONSTRAINT id_topico_status foreign key (id_topico) references topico(id),
+CONSTRAINT id_moderator foreign key (id_moderator) references usuario(id)
+);
