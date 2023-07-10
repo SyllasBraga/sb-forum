@@ -29,4 +29,8 @@ public class TopicStatusService {
             }
         ).orElseThrow(() -> new NotFoundException("Entidade não encontrada"));
     }
+
+    public TopicStatus buscarPeloIdTopico(Long idTopico){
+        return topicStatusRepository.findByIdTopico(idTopico);
+    }
 }
